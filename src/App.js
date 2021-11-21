@@ -66,6 +66,18 @@ const App = () => {
 
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
+
+        /*
+        * Execute the actual wave from your smart contract
+        */
+        const waveTxn = await wavePortalContract.wave();
+        console.log("Mining...", waveTxn.hash);
+
+        await waveTxn.wait();
+        console.log("Mined -- ", waveTxn.hash);
+
+        count = await wavePortalContract.getTotalWaves();
+        console.log("Retrieved total wave count...", count.toNumber());
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -90,6 +102,10 @@ const App = () => {
 
         <div className="bio">
         I am farza and I worked on self-driving cars so that's pretty cool right? Connect your Ethereum wallet and wave at me!
+        </div>
+
+        <div>
+          Current Waves: {}
         </div>
 
         <button className="waveButton" onClick={wave}>
