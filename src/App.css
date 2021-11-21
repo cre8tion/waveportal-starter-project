@@ -18,6 +18,14 @@
   font-weight: 600;
 }
 
+.input {
+  text-align: center;
+  margin-top: 16px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 3px;
+}
+
 .bio {
   text-align: center;
   color: gray;
