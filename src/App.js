@@ -1,4 +1,5 @@
 import * as React from "react";
+// eslint-disable-next-line
 import { ethers } from "ethers";
 import './App.css';
 
@@ -13,7 +14,7 @@ export default function App() {
 
       <div className="dataContainer">
         <div className="header">
-        👋 Hey there!
+        <span role="img" aria-label="Wave Hand Signal">👋</span> Hey there!
         </div>
 
         <div className="bio">
