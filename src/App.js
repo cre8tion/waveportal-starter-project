@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { ethers } from "ethers";
 import './App.css';
-import WavePortalAbi from "./utils/WavePortal.json"
+import WavePortal from "./utils/WavePortal.json"
 
 const App = () => {
 
@@ -10,8 +10,8 @@ const App = () => {
   const [currentWaves, setCurrentWaves] = useState(null);
   const [inputValue, setInputValue] = useState('');
 
-  const contractAddress = "0xBC49B9eF50C5274aE53f50771EE3826deDAFcf3F";
-  const contractABI = WavePortalAbi.abi;
+  const contractAddress = "0x180D29AFac2096fc60f6F528161E40c99A0B622C";
+  const contractABI = WavePortal.abi;
 
   const getTotalWaves = useCallback(async() => {
     try {
@@ -25,6 +25,9 @@ const App = () => {
         console.log("Retrieved total wave count...", count.toNumber());
         setCurrentWaves(count.toNumber());
 
+        wavePortalContract.on("NewWave", (from, timestamp, message) => {
+          setCurrentWaves(c => c + 1);
+        });
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -51,19 +54,28 @@ const App = () => {
          * We only need address, timestamp, and message in our UI so let's
          * pick those out
          */
-        let wavesCleaned = [];
-        waves.forEach(wave => {
-          wavesCleaned.push({
+        const wavesCleaned = waves.map(wave => {
+          return {
             address: wave.waver,
             timestamp: new Date(wave.timestamp * 1000),
-            message: wave.message
-          });
+            message: wave.message,
+          };
         });
 
         /*
          * Store our data in React State
          */
         setAllWaves(wavesCleaned);
+
+        wavePortalContract.on("NewWave", (from, timestamp, message) => {
+          console.log("NewWave", from, timestamp, message);
+
+          setAllWaves(prevState => [...prevState, {
+            address: from,
+            timestamp: new Date(timestamp * 1000),
+            message: message
+          }]);
+        });
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -134,14 +146,12 @@ const App = () => {
         /*
         * Execute the actual wave from your smart contract
         */
-        const waveTxn = await wavePortalContract.wave(inputValue);
+        const waveTxn = await wavePortalContract.wave(inputValue, { gasLimit: 300000 });
         console.log("Mining...", waveTxn.hash);
 
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
 
-        getTotalWaves();
-        getAllWaves();
       } else {
         console.log("Ethereum object doesn't exist!");
       }
