@@ -6,6 +6,7 @@ import WavePortalAbi from "./utils/WavePortal.json"
 const App = () => {
 
   const [currentAccount, setCurrentAccount] = useState("");
+  const [currentWaves, setCurrentWaves] = useState(null);
   const contractAddress = "0xB3b535eadE462Df247e8F9a678eA8d630F42bB06";
   const contractABI = WavePortalAbi.abi;
 
@@ -66,6 +67,7 @@ const App = () => {
 
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
+        setCurrentWaves(Number(count))
 
         /*
         * Execute the actual wave from your smart contract
@@ -104,10 +106,10 @@ const App = () => {
         I am farza and I worked on self-driving cars so that's pretty cool right? Connect your Ethereum wallet and wave at me!
         </div>
 
-        <div>
-          Current Waves: {}
+        <div className="wavesTotalCount">
+            Current Waves: {currentWaves}
         </div>
-
+        
         <button className="waveButton" onClick={wave}>
           Wave at Me
         </button>

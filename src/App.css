@@ -24,6 +24,12 @@
   margin-top: 16px;
 }
 
+.wavesTotalCount {
+  text-align: center;
+  color: black;
+  margin-top: 16px;
+}
+
 .waveButton {
   cursor: pointer;
   margin-top: 16px;
