@@ -10,7 +10,7 @@ const App = () => {
   const [currentWaves, setCurrentWaves] = useState(null);
   const [inputValue, setInputValue] = useState('');
 
-  const contractAddress = "0xD7C19956F4f593e739c7004a6522cfdA843eD74a";
+  const contractAddress = "0xBC49B9eF50C5274aE53f50771EE3826deDAFcf3F";
   const contractABI = WavePortalAbi.abi;
 
   const getTotalWaves = useCallback(async() => {
