@@ -189,7 +189,7 @@ const App = () => {
         />
 
         <div className="bio">
-        I am farza and I worked on self-driving cars so that's pretty cool right? Connect your Ethereum wallet and wave at me!
+        I am Jia Le and I am learning Web3! Connect your Ethereum wallet and wave at me!
         </div>
 
         <div className="wavesTotalCount">
@@ -200,7 +200,7 @@ const App = () => {
           Wave at Me
         </button>
 
-                {/*
+        {/*
         * If there is no currentAccount render this button
         */}
         {!currentAccount && (
