@@ -10,7 +10,7 @@ const App = () => {
   const [currentWaves, setCurrentWaves] = useState(null);
   const [inputValue, setInputValue] = useState('');
 
-  const contractAddress = "0xdd8bb02f5a2616220Af0c20933E1Bda40210aaaE";
+  const contractAddress = "0xD7C19956F4f593e739c7004a6522cfdA843eD74a";
   const contractABI = WavePortalAbi.abi;
 
   const getTotalWaves = useCallback(async() => {
@@ -140,8 +140,8 @@ const App = () => {
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
 
-        let count = await wavePortalContract.getTotalWaves();
-        console.log("Retrieved total wave count...", count.toNumber());
+        getTotalWaves();
+        getAllWaves();
       } else {
         console.log("Ethereum object doesn't exist!");
       }
